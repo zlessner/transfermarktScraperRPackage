@@ -29,11 +29,11 @@ Example data:
 head(PLdata[,c("Player","Team", "Player $ Values (Mil)")])
 
 
-#>               Player         Team Player $ Values (Mil)
-#>  1           Alisson Liverpool FC                 66.00
-#>  2 Caoimhin Kelleher Liverpool FC                  2.75
-#>  3      Loris Karius Liverpool FC                  2.20
-#>  4            Adrián Liverpool FC                  1.10
-#>  5   Virgil van Dijk Liverpool FC                 60.50
-#>  6   Ibrahima Konaté Liverpool FC                 38.50
+#>               Player         Team        Player $ Values (Mil)
+#>  1           Alisson      Liverpool FC         66.00
+#>  2 Caoimhin Kelleher      Liverpool FC         2.75
+#>  3      Loris Karius      Liverpool FC         2.20
+#>  4            Adrián      Liverpool FC         1.10
+#>  5   Virgil van Dijk      Liverpool FC         60.50
+#>  6   Ibrahima Konaté      Liverpool FC         38.50
 ```
