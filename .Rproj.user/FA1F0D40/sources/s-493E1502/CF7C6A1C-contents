@@ -20,6 +20,8 @@ install_github("zlessner/transfermarktScraperRPackage");
 View the dataframe:
 
 ``` r
+library(transfermarktScraperRPackage)
+
 PLdata
 ```
 
