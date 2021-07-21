@@ -1,0 +1,4 @@
+"0","# view(PLdata %>%"
+"0","#   group_by(Team, `Height (m)`) )"
+"0",""
+"0","aggregate(`Height (m)`  ~ Team, PLdata, mean )"

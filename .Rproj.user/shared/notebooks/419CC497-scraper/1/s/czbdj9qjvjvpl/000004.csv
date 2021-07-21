@@ -1,0 +1,9 @@
+"0",""
+"0",""
+"0","PLdata %>%"
+"0","  group_by(Team) %>%"
+"0","  na.omit() %>%"
+"0","  summarise(B = mean(`Height (m)`)) %>%"
+"0","  arrange(-B)"
+"2","`summarise()` ungrouping output (override with `.groups` argument)
+"

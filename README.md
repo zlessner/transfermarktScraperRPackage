@@ -20,6 +20,15 @@ install_github("zlessner/transfermarktScraperRPackage");
 View the dataframe:
 
 ``` r
-PLdata
+head(PLdata)
+
+
+#>             Player     Country         Team 
+#> 1           Alisson      Brazil Liverpool FC
+#> 2 Caoimhin Kelleher     Ireland Liverpool FC
+#> 3      Loris Karius     Germany Liverpool FC
+#> 4            Adrián       Spain Liverpool FC
+#> 5   Virgil van Dijk Netherlands Liverpool FC
+#> 6   Ibrahima Konaté      France Liverpool FC ...
 
 ```
