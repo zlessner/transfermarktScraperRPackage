@@ -105,13 +105,15 @@ PLdata <- PLdata %>%
   rename(`Player $ Values (Mil)` = Values, `Height (m)` = Height) 
 
 
+
+
+
 #' Premier League and Championship Tables
 #'
 #' Show market values for all players in the EPL and Championship
 #' @param PLdata The overall table structure
 #' @return Player data, including market value
 #' @examples 
-#' PLdata$Values <- Market Value
-#' PLdata$Country <- Player's country
+#' PLdata$Country
 #' @export
-PLdata
+PLdata <- PLdata
