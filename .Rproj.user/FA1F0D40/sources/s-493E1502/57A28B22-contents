@@ -1,0 +1,117 @@
+library(rvest)
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+library(stringi)
+library(scales)
+
+inspectors = c(".dataName span",  ".hauptpunkt a", ".rechts.hauptlink",".posrela+ .zentriert", ".inline-table tr+ tr td", "td:nth-child(5)", "td:nth-child(6)", "td:nth-child(7)", "td:nth-child(9)")
+
+columns = c("Team", "League","Values", "Age", "Position", "Height", "Foot", "Joined", "Contract Until")
+
+EPL = c(
+  31, 281, 631,985,148,11,29,1003,543,405,379,762,1237,873,180,399,1132,1123,1010,1148,
+  989,350,931,984,603,698,703,2288,512,1032,641,22,164,337,1110,1028,466,1039,349,1031,990,3008,1181,1072)
+
+
+# create an R package
+
+# add injury data to table?
+
+PLdata = data.frame(matrix(ncol = 11, nrow = 0))
+
+colnames(PLdata) <- c("Player","Country", columns)
+
+
+for (i in 1:length(EPL)) {
+  Link <- paste0("https://www.transfermarkt.us/tottenham-hotspur/kader/verein/", EPL[i] ,"/saison_id/2021/plus/1")
+  
+  page = read_html(Link)
+  Country = page%>% html_nodes("#yw1 .flaggenrahmen:nth-child(1)")%>%
+    html_attr("title")
+  
+  
+  # spacing out requests
+  Sys.sleep(runif(1, 2, 5))
+  
+  
+  df = data.frame(Country)
+  
+  
+  
+  playerNames = page%>% html_nodes("#yw1 .spielprofil_tooltip")%>%
+    html_text()
+  
+  playerNamesdf = data.frame(playerNames)
+  
+  
+  toDelete <- seq(1, nrow(playerNamesdf), 2)
+  
+  Player = playerNamesdf[ toDelete ,]
+  
+  playerNamesdf = data.frame(Player)
+  
+  
+  
+  
+  for (i in 1:length(columns)) {
+    n <- page%>% html_nodes(inspectors[i])
+    df[columns[i]] = n %>%
+      html_text()
+    
+  }
+  
+  
+  df = cbind(Player,df)
+  
+  
+  PLdata = rbind(PLdata, df)
+  
+  # df
+}
+
+PLdata$Age = str_sub(PLdata$Age, - 3, - 1)
+PLdata$Age = as.numeric(substr(PLdata$Age, 1, 2))
+
+PLdata$League = substring(PLdata$League, 4) 
+
+PLdata$Joined <- mdy(PLdata$Joined)
+PLdata$`Contract Until` <- mdy(PLdata$`Contract Until`)
+
+
+
+PLdata$Values <- str_replace_all(PLdata$Values, c("\\$" = "", "Th." = "k", "-" = 0, "m" = ""))
+
+PLdata$Values = str_trim(PLdata$Values)
+
+
+for (i in 1:nrow(PLdata)) {
+  if (stri_sub(PLdata$Values[i],-1,-1)  == 'k') {
+    PLdata$Values[i] = paste0(".", PLdata$Values[i])
+    PLdata$Values[i] = gsub("k", "", PLdata$Values[i])
+  }
+}
+
+
+PLdata$Values = round(as.numeric(PLdata$Values),2)
+
+
+
+PLdata$Height = gsub("m", "", PLdata$Height)
+
+PLdata$Height <- as.numeric(gsub(",", "\\.", PLdata$Height))
+
+PLdata <- PLdata %>%
+  rename(`Player $ Values (Mil)` = Values, `Height (m)` = Height) 
+
+
+#' Premier League and Championship Tables
+#'
+#' Show market values for all players in the EPL and Championship
+#' @param PLdata The overall table structure
+#' @return Player data, including market value
+#' @examples 
+#' PLdata$Values <- Market Value
+#' PLdata$Country <- Player's country
+#' @export
+PLdata

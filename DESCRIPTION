@@ -1,0 +1,5 @@
+Package: transfermarktScraperRPackage
+Type: Package
+Title: Transfermarkt Scraper
+Version: 0.0.1.0
+RoxygenNote: 7.1.1
