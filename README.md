@@ -20,15 +20,20 @@ install_github("zlessner/transfermarktScraperRPackage");
 View the dataframe:
 
 ``` r
-head(PLdata)
+PLdata
+```
+
+Example data:
+
+``` r
+head(PLdata[,c("Player","Team", "Player $ Values (Mil)")])
 
 
-#>             Player     Country         Team 
-#> 1           Alisson      Brazil Liverpool FC
-#> 2 Caoimhin Kelleher     Ireland Liverpool FC
-#> 3      Loris Karius     Germany Liverpool FC
-#> 4            Adrián       Spain Liverpool FC
-#> 5   Virgil van Dijk Netherlands Liverpool FC
-#> 6   Ibrahima Konaté      France Liverpool FC ...
-
+#>               Player         Team Player $ Values (Mil)
+#>  1           Alisson Liverpool FC                 66.00
+#>  2 Caoimhin Kelleher Liverpool FC                  2.75
+#>  3      Loris Karius Liverpool FC                  2.20
+#>  4            Adrián Liverpool FC                  1.10
+#>  5   Virgil van Dijk Liverpool FC                 60.50
+#>  6   Ibrahima Konaté Liverpool FC                 38.50
 ```
